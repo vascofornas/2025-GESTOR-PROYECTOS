@@ -21,3 +21,47 @@ yarn-error.log
 /.nova
 /.vscode
 /.zed
+# Laravel
+/vendor
+/node_modules
+/public/storage
+/storage/*.key
+.env
+.phpunit.result.cache
+Homestead.json
+Homestead.yaml
+npm-debug.log
+yarn-error.log
+/.idea
+/.vscode
+/.phpunit.result.cache
+
+# Laravel specific
+/storage/app/public
+/storage/framework/*
+!/storage/framework/.gitignore
+/storage/logs/*
+!/storage/logs/.gitignore
+
+# Laravel 12 config caching
+bootstrap/cache/*.php
+!bootstrap/cache/.gitignore
+
+# OS/system files
+.DS_Store
+Thumbs.db
+
+# Composer files
+composer.lock
+
+# Tailwind or Vite generated files
+/public/build
+/public/hot
+/public/mix-manifest.json
+
+# Livewire Volt
+.phpunit.cache
+.idea/
+vite.config.js
+vite.config.ts
+*.sqlite
