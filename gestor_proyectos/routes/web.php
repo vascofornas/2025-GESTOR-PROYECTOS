@@ -8,12 +8,12 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
-// 👉 Esta ruta carga el componente ProjectList como dashboard
-Route::get('dashboard', ProjectList::class)
+// Ruta para el dashboard (vacío o con widgets)
+Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 
-// 👉 Esta es la nueva ruta que usaremos en el menú lateral para la vista de Proyectos
+// Ruta para la vista de proyectos
 Route::get('proyectos', ProjectList::class)
     ->middleware(['auth', 'verified'])
     ->name('projects.index');

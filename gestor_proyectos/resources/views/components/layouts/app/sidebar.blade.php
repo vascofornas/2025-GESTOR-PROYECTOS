@@ -2,6 +2,8 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="dark">
     <head>
         @include('partials.head')
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> {{-- ✅ Chart.js --}}
+        <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script> {{-- ✅ ApexCharts --}}
         @livewireStyles
     </head>
     <body class="min-h-screen bg-white dark:bg-zinc-800">
@@ -83,15 +85,12 @@
         <!-- Mobile User Menu -->
         <flux:header class="lg:hidden">
             <flux:sidebar.toggle class="lg:hidden" icon="bars-2" inset="left" />
-
             <flux:spacer />
-
             <flux:dropdown position="top" align="end">
                 <flux:profile
                     :initials="auth()->user()->initials()"
                     icon-trailing="chevron-down"
                 />
-
                 <flux:menu>
                     <flux:menu.radio.group>
                         <div class="p-0 text-sm font-normal">
@@ -101,7 +100,6 @@
                                         {{ auth()->user()->initials() }}
                                     </span>
                                 </span>
-
                                 <div class="grid flex-1 text-start text-sm leading-tight">
                                     <span class="truncate font-semibold">{{ auth()->user()->name }}</span>
                                     <span class="truncate text-xs">{{ auth()->user()->email }}</span>

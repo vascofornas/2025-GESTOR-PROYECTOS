@@ -21,7 +21,7 @@
     <!-- Campo de búsqueda -->
     <div class="flex justify-center mt-4">
         <input
-            wire:model.debounce.500ms="search"
+            wire:model.live.debounce.500ms="search"
             type="text"
             placeholder="Buscar proyectos..."
             class="w-full md:w-1/2 px-4 py-2 rounded-lg border border-gray-300 shadow-sm focus:ring focus:ring-blue-200 dark:bg-gray-800 dark:border-gray-600 dark:text-white"
