@@ -9,6 +9,8 @@ use Illuminate\Support\Str;
 class ProjectList extends Component
 {
     public string $search = '';
+    public string $sortField = 'name';
+    public string $sortDirection = 'asc';
 
     public array $filters = [
         'pendiente' => false,
@@ -17,6 +19,18 @@ class ProjectList extends Component
         'cancelado' => false,
     ];
 
+    protected $updatesQueryString = ['search', 'sortField', 'sortDirection'];
+
+    public function sortBy($field)
+    {
+        if ($this->sortField === $field) {
+            $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
+        } else {
+            $this->sortField = $field;
+            $this->sortDirection = 'asc';
+        }
+    }
+
     public function resetFilters()
     {
         $this->filters = array_map(fn () => false, $this->filters);
@@ -24,7 +38,9 @@ class ProjectList extends Component
 
     public function highlight($text)
     {
-        if (!$this->search) return e($text);
+        if (!$this->search) {
+            return e($text);
+        }
 
         return preg_replace_callback('/(' . preg_quote($this->search, '/') . ')/i', function ($match) {
             return '<span class="bg-yellow-200 dark:bg-yellow-600 font-semibold">' . e($match[0]) . '</span>';
@@ -55,11 +71,12 @@ class ProjectList extends Component
             $query->whereIn('status', $activeFilters);
         }
 
-        $projects = $query->latest()->get();
+        $projects = $query
+            ->orderBy($this->sortField, $this->sortDirection)
+            ->get();
 
         return view('livewire.projects.project-list', [
             'projects' => $projects,
         ]);
     }
 }
-

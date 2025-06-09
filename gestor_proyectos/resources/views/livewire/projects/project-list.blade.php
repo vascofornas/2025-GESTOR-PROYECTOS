@@ -48,12 +48,33 @@
         <table class="min-w-full divide-y divide-gray-200 bg-white dark:bg-gray-900">
             <thead class="bg-gray-100 dark:bg-gray-800">
                 <tr>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-700 dark:text-gray-300 uppercase tracking-wider">Nombre</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-700 dark:text-gray-300 uppercase tracking-wider">Descripción</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-700 dark:text-gray-300 uppercase tracking-wider">Estado</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-700 dark:text-gray-300 uppercase tracking-wider">Inicio</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-700 dark:text-gray-300 uppercase tracking-wider">Fin</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-700 dark:text-gray-300 uppercase tracking-wider">Publicado por</th>
+                    @php
+                        $headers = [
+                            'name' => 'Nombre',
+                            'description' => 'Descripción',
+                            'status' => 'Estado',
+                            'start_date' => 'Inicio',
+                            'end_date' => 'Fin',
+                            'creator.name' => 'Publicado por',
+                        ];
+                    @endphp
+
+                    @foreach ($headers as $field => $label)
+                        <th
+                            class="px-6 py-3 text-left text-xs font-medium text-gray-700 dark:text-gray-300 uppercase tracking-wider cursor-pointer select-none"
+                            wire:click="sortBy('{{ $field }}')"
+                        >
+                            {{ $label }}
+                            @if ($sortField === $field)
+                                @if ($sortDirection === 'asc')
+                                    <span>▲</span>
+                                @else
+                                    <span>▼</span>
+                                @endif
+                            @endif
+                        </th>
+                    @endforeach
+
                     <th class="px-6 py-3 text-right text-xs font-medium text-gray-700 dark:text-gray-300 uppercase tracking-wider">Acciones</th>
                 </tr>
             </thead>
@@ -69,10 +90,10 @@
                         <td class="px-6 py-4 whitespace-nowrap">
                             @php
                                 $colors = [
-                                  'pendiente' => 'bg-red-100 text-red-700',
-        'en curso' => 'bg-blue-100 text-blue-700',
-        'completado' => 'bg-green-100 text-green-700',
-        'cancelado' => 'bg-gray-100 text-gray-700',
+                                    'pendiente' => 'bg-red-100 text-red-700',
+                                    'en curso' => 'bg-blue-100 text-blue-700',
+                                    'completado' => 'bg-green-100 text-green-700',
+                                    'cancelado' => 'bg-gray-100 text-gray-700',
                                 ];
                                 $estado = strtolower($project->status);
                             @endphp
